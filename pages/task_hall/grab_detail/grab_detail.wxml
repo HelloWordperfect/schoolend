@@ -1,0 +1,131 @@
+<!--pages/grab/grab_detail/grab_detail.wxml-->
+<loading wx:if="{{showLoading}}">加载中</loading>
+<view class='section1 clear'>
+   <image src='{{photo}}' class='section1_l fl_l'></image> 
+  <view class='section1_r fl_l'>
+    <view class='section1_rt clear'>
+      <view class='section1_rtl fl_l'>{{name}}发布的</view>
+      <view class='section1_rtr fl_l'>{{orderType==1?'超市订单':''}}{{orderType==0?'快递订单':''}}{{orderType==2?'桶装水订单':''}}{{orderType==3?'餐饮订单':''}}</view>
+    </view>
+    <view class='section1_rb'>{{createTime}}</view>
+  </view>
+</view> 
+
+<view class='section2' wx:if="{{orderType==1}}">
+  <view class='section2_t clear'>
+    <image class='section2_tl1 fl_l' src='/image/shop_cart.png'></image>
+    <view class='section2_tl2 fl_l'>购物详情</view>
+    <view class='section2_tr2 fl_r'>仔细查看商品，提高送货效率</view>
+    <image class='section2_tr1 fl_r' src='/image/warn.png'></image>
+  </view>
+
+  <view class='list clear' wx:for="{{goodsList}}" wx:key="item1">
+   <view class='list_item clear'>
+    <image class='item_l' src='{{imgUrl+item.goodsThumbs}}'></image>
+    <view class='item_c'>
+      <view class='item_ct'>{{item.goodsName}}</view>
+       <view class='item_cc'>价格：<text class='red'>¥{{item.goodsPrice}}</text>  </view> 
+      <view class='item_cb'>数量：<text class='red'>{{item.goodsNums}}</text></view>
+    </view>
+   </view>
+   
+  </view>
+</view>
+
+<view class='section2' wx:if="{{orderType==2}}">
+  <view class='section2_t clear'>
+    <image class='section2_tl1 fl_l' src='/image/songshui.png'></image>
+    <view class='section2_tl2 fl_l'>饮用水详情</view>
+    <view class='section2_tr2 fl_r'>仔细查看商品，提高送货效率</view>
+    <image class='section2_tr1 fl_r' src='/image/warn.png'></image>
+  </view>
+  <view class='list clear' wx:for="{{goodsList}}" wx:key="item2">
+   <view class='list_item clear'>
+    <image class='item_l fl_l' src='{{imgUrl+item.goodsThumbs}}'></image>
+    <view class='item_c fl_l'>
+      <view class='item_ct'>{{item.goodsName}}</view>
+      <view class='item_cc'>价格：<text class='red'>¥{{item.goodsPrice}}</text> </view>
+      <view class='item_cb'>数量：<text class='red'>{{item.goodsNums}}</text></view>
+    </view>
+   </view>
+  </view>
+</view>
+
+<view class='section2' wx:if="{{orderType==3}}">
+  <view class='section2_t clear'>
+    <image class='section2_tl1 fl_l' src='/image/canyin.png'></image>
+    <view class='section2_tl2 fl_l'>餐饮详情</view>
+    <view class='section2_tr2 fl_r'>仔细查看商品，提高送货效率</view>
+    <image class='section2_tr1 fl_r' src='/image/warn.png'></image>
+  </view>
+  <view class='list clear'>
+
+   <view class='list_item clear' wx:for="{{goodsList}}" wx:key="item3">
+    <image class='item_l fl_l' src='{{imgUrl+item.goodsThumbs}}'></image>
+    <view class='item_c fl_l'>
+      <view class='item_ct'>{{item.goodsName}}</view>
+      <view class='item_cc'>价格：<text class='red'>¥{{item.goodsPrice}}</text> </view>
+      <view class='item_cb'>数量：<text class='red'>{{item.goodsNums}}</text></view>
+    </view>
+   </view>
+
+  </view>
+</view>
+
+<view class='section2' wx:if="{{orderType==0}}">
+  <view class='section2_t clear'>
+    <image class='section2_tl1 fl_l' src='/image/kuaidi.png'></image>
+    <view class='section2_tl2 fl_l'>快递详情</view>
+    <view class='section2_tr2 fl_r'>仔细查看商品，提高送货效率</view>
+    <image class='section2_tr1 fl_r' src='/image/warn.png'></image>
+  </view>
+  <view class='list clear'>
+   <view class='list_item clear'>
+    <image class='item_l fl_l' src='/image/kuaidi-01.png'></image>
+    <view class='item_c fl_l'>
+      <view class='item_ct'>{{type!=0 ? shopName:'xxx'}} {{shopAddress}}</view>
+      <view class='item_cc'>包裹信息：{{type!=0 ? packageName:'xxx'}} {{type!=0 ? packagePhone:'xxx'}}</view>
+      <view class='item_cb'>包裹取件码：<text class='red'>{{type!=0 ? packageCode:'xxx'}}</text></view>
+    </view>
+   </view>
+  </view>
+</view>
+
+<view class='section3'>
+  <view class='section3_t'>
+    <image class='section3_tl fl_l' src='/image/info.png'></image>
+    <view class='section3_tl2 fl_l'>订单详情</view>
+  </view>
+  <view class='section3_cont clear'>
+    <view class='cont'>
+      订单编号：<text class='cont_v'>{{orderNo}}</text>
+    </view>
+    <view class='cont'>
+      取货地址：<text class='cont_v'>{{shopAddress}}</text>
+    </view>
+    <view class='cont'>
+      要求送达时间：<text class='cont_v'>{{sendTime?sendTime:'当天送达'}}</text>
+    </view>
+    <view class='cont'>
+      收货人姓名：<text class='cont_v'>{{type!=0 ? userName :'xxx'}}</text>
+    </view>
+    <view class='cont'>
+      收货人手机号：<text class='cont_v'>{{type!=0 ? userPhone:'xxx-xxx'}}</text>
+    </view>
+    <view class='cont'>
+      送货地址：<text class='cont_v'>{{userAddress}}</text>
+    </view>
+  </view>
+</view>
+
+<view class='section4'>
+  <view class='section3_t'>
+    <image class='section3_tl fl_l' src='/image/note.png'></image>
+    <view class='section3_tl2 fl_l'>订单备注</view>
+  </view>
+  <view class='section4_cont clear'>
+    <textarea cursor-spacing="150" class='section4_val' disabled value='{{orderRemarks}}'></textarea>
+  </view>
+</view>
+
+<view wx:if="{{type==0}}" class='btn' data-taskid='{{taskId}}' bindtap='submit'>确认抢单</view>

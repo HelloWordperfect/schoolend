@@ -1,0 +1,129 @@
+<!--pages/shopDetails/shopDetails.wxml-->
+<import src="../../../wxParse/wxParse.wxml" />
+<loading wx:if="{{showLoading}}">加载中</loading>
+<form bindsubmit="submitOrders" report-submit="true">
+<view class="shop">
+  <!-- 商品轮播 -->
+  <view class="index-banner">
+    <swiper class="index-swiper" indicator-dots="true" indicator-active-color="#309EFD" autoplay="true" interval="5000" duration="1000" circular="true">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{baseUrl}}{{item}}" class="index-banner-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 产品内容 -->
+  <view class="shop-title">
+    <view>{{datas.name}}</view>
+    <view class="shop-t-jiage">
+      <view>
+        <view>￥{{datas.price_yh}}</view>
+        <view>库存：{{datas.num}}{{datas.company}}
+          <text>销量：{{datas.saleNum}} {{datas.company}}</text>
+        </view>
+      </view>
+      <!-- 分享 -->
+      <view class="shop-t-fenxiang">
+        <button class="water-button" open-type="share"></button>
+        <image src="/image/shopdetails-01.png"></image>
+        <view>分享</view>
+      </view>
+    </view>
+    <!-- <view>发货地：{{datas.goodsfahuo}}</view> -->
+  </view>
+  <!-- 选择参数 -->
+  <view class="shop-canshu" bindtap="bindtapMasks" data-index='1'>
+    <view>选择商品参数、数量</view>
+    <image src="/image/index-06.png"></image>
+  </view>
+  <navigator class="shop-canshu" url="../../evaluateList/evaluateList?shopId=1&goodsId={{goodsid}}">
+    <view>商品评价
+    </view>
+    <image src="/image/index-06.png"></image>
+  </navigator>
+  <!-- 图文详情 -->
+  <view class="shop-xiang">
+    <view>图文详情</view>
+    <view>
+      <view class="{{swiperIndexs == 0 ? 'shop-x-active' : ''}}" bindtap="shopDetail">商品详情</view>
+      <view class="{{swiperIndexs == 1 ? 'shop-x-active' : ''}}" bindtap="shopSize">规格参数</view>
+    </view>
+    <!-- 详情内容 -->
+    <view class="shops-detail">
+      <view wx:if="{{swiperIndexs == 0}}">
+          <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      </view>
+      <view wx:if="{{swiperIndexs == 1}}">
+        <view class="shop-guige" wx:for="{{datas.canshu}}" wx:key="item3">{{item.name}}：
+          <text>{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 底部栏 -->
+  <view class="shop-bottom">
+    <view class="shop-b-kefu">
+      <image src="/image/shopdetails-02.png"></image>
+      <view>客服</view>
+      <button class="my-button" open-type="contact"></button>
+    </view>
+    <view bindtap='go_cart' class="shop-b-kefu">
+      <image src="/image/shopdetails-03.png"></image>
+      <view>购物车</view>
+    </view>
+    <button  formType="submit" class="shop-b-goumai" data-index='0' bindtap="bindtapMasks">加入购物车</button>
+    <button  formType="submit" class="shop-b-goumai" data-index='1' bindtap="bindtapMasks">立即购买</button>
+  </view>
+</view>
+<!-- 弹窗 -->
+<view class="mask" wx:if="{{showModalStatus}}">
+  <view class="masks" bindtap="bindtapClose" wx:if="{{showModalStatus}}"></view>
+  <view class="mask-shop"  animation="{{animationData}}" wx:if="{{showModalStatus}}">
+    <view class="mask-tp">
+      <image src="{{baseUrl}}{{img}}"></image>
+      <view><text>单价：</text>￥{{price}}</view>
+      <view>库存：{{stock}}{{datas.company}}</view>
+      <image bindtap="bindtapClose" src="/image/shopdetails-05.png"></image>
+    </view>
+    <view class='gui_wrap'>
+      <!-- 规格和口味 -->
+      <view class="mask-guige">
+        <!-- 规格 -->
+        <view class="mask-guige1" wx:if="{{list[0]}}" wx:for="{{list}}" wx:for-item="list1" wx:key="list1" wx:for-index="list1_index">
+          <view>{{list1.attrkey}}</view>
+          <view class="mask-g-xuan">
+            <view wx:for="{{list1.attrValues}}" wx:for-item="list2" wx:key="list2" wx:for-index="list2_index" class=" {{list3[list1_index]==list2_index ? 'mask-active':''}} {{list1.attrValueStatus[list2_index] ? '':'mask_disabled'}}" bindtap="{{list1.attrValueStatus[list2_index] ? 'selectAttrValue' :''}}" data-status="{{list1.attrValueStatus[list2_index]}}" data-hindex="{{list1_index}}" data-index="{{list2_index}}" data-val="{{list2}}">{{list2}}</view>
+          </view>
+        </view>
+        <!-- <view class="mask-guige1">
+          <view>楼层</view>
+          <view class="mask-g-xuan">
+            <view class="{{floor==0?'mask-active':''}}" data-index='0' bindtap='floor_choose'>一楼到三楼</view>
+            <view class="{{floor==1?'mask-active':''}}" data-index='1' bindtap='floor_choose'>四楼到六楼</view>
+          </view>
+        </view> -->
+        <view class="mask-guige1" wx:if="{{!list[0]}}">
+          <view>规格</view>
+          <view class="mask-g-xuan">
+            <view class="mask-active">默认</view>
+          </view>
+        </view>
+      </view>
+      <!-- 数量 -->
+      <view class="mask-number">
+        <view>数量</view>
+        <view>
+          <view bindtap="bindtapJian">-</view>
+          <veiw class="number">{{numbers}}</veiw>
+          <view bindtap="bindtapJia">+</view>
+        </view>
+      </view>
+    </view>
+    <!-- 按钮 -->
+    <view class="mask-anniu">
+      <button class='submit2' formType="submit" bindtap='confrim'>{{type == 0 ? '加入购物车' : '立即购买'}}</button>
+    </view>
+  </view>
+</view>
+</form>

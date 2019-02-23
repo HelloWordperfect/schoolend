@@ -1,0 +1,162 @@
+<!--pages/submitOrder/submitOrder.wxml-->
+<loading wx:if="{{showLoading}}">加载中</loading>
+  <form bindsubmit="submitOrders" report-submit="true">
+<view class="sub">
+  <!-- 地址 -->
+  <view class="sub-address">
+    <!-- 没有地址时 -->
+    <view bindtap='choose_address' wx:if="{{!address}}" class="address-none">
+			<view>添加收货地址</view>
+			<image src="/image/index-06.png"></image>
+		</view> 
+    <!-- 有地址时 --> 
+    <view bindtap='choose_address' wx:if="{{address}}" class="sub-address-block">
+      <view> 
+        <image src="/image/address-02.png"></image>
+      </view>
+      <view>  
+        <view>姓名：{{address.userName}}</view>
+        <view>手机号：{{address.userPhone}}</view>
+        <view>收货地址：{{address.schoolName}}{{address.buildName}}{{address.floorNum}}楼 {{address.address}}
+        </view>
+      </view> 
+      <view>
+        <image src="/image/index-06.png"></image>
+      </view> 
+    </view>
+    <!-- 底部条 -->
+    <view class="sub-address-image">
+      <image src="/image/address-bottom.png"></image>
+    </view>
+  </view>
+
+  <!-- 商品 -->
+  <view wx:if="{{shop_goods.length>0}}" class="sub-shop">
+    <!-- 标题 -->
+    <view class="sub-shop-title">
+      <image src="/image/chaoshi.png"></image>
+      <view>超市商品</view>
+    </view>
+    <!-- 商品 -->
+    <view class="sub-shop-nei">
+      <!-- 第一条 -->
+      <view class="sub-nei-one" wx:for="{{shop_goods}}" wx:key="shop">
+        <view>
+          <image src="{{item.img}}"></image>
+        </view>
+        <view>
+          <view>{{item.name}}</view>
+          <view class='ellipsis'>
+            <text class='ellipsis'>规格：{{item.info}}</text>
+            <!-- <text>口味：原味</text> -->
+          </view>
+          <view class='botm clear'>
+            <view class='botm_l fl_l'>￥{{item.price}}</view>
+            <view class='botm_r fl_l'>数量：{{item.num}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品 -->
+  <view wx:if="{{water.length>0}}" class="sub-shop">
+    <!-- 标题 -->
+    <view class="sub-shop-title">
+      <image src="/image/songshui.png"></image>
+      <view>万能帮</view>
+    </view>
+    <!-- 商品 -->
+    <view class="sub-shop-nei">
+      <!-- 第一条 -->
+      <view class="sub-nei-one" wx:for="{{water}}" wx:key="shop">
+        <view>
+          <image src="{{item.img}}"></image>
+        </view>
+        <view>
+          <view>{{item.name}}</view>
+          <view>
+            <!-- <text>规格：{{item.specs}}</text> -->
+            <text>规格：{{item.info}}</text>
+          </view>
+          <view class='botm clear'>
+            <view class='botm_l fl_l'>￥{{item.price}}</view>
+            <view class='botm_r fl_l'>数量：{{item.num}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="sub-shop" wx:if="{{dining.length>0}}">
+    <!-- 标题 -->
+    <view class="sub-shop-title">
+      <image src="/image/canyin.png"></image>
+      <view>{{shopName}}</view>
+    </view>
+    <!-- 商品 -->
+    <view class="sub-shop-nei">
+      <view wx:for="{{dining}}" wx:key="dining" class="sub-nei-one">
+        <view>
+          <image src="{{item.img}}"></image>
+        </view>
+        <view>
+          <view>{{item.name}}</view>
+          <view class='ellipsis'>
+            <text class='ellipsis'>{{item.detail}}</text>
+            <!-- <text>口味：原味</text> -->
+          </view>
+          <view class='botm clear'>
+            <view class='botm_l fl_l'>￥{{item.price_yh}}</view>
+            <view class='botm_r fl_l'>数量：{{item.num}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 快递费用 -->
+  <view class="sub-kuaidi">
+    <view>快递费用</view>
+    <view wx:if="{{isTeacher!=1}}" class='user'>￥{{freight}}</view>
+    <view wx:if="{{isTeacher==1}}" class='teacher'>教师免单</view>
+  </view>
+  <view class="sub-kuaidi" wx:if="{{fristOrder == 1}}"><view class='fl_l' style="font-size: 26rpx;color: #FA610E;">新用户减免首单运费(送水服务只减免一桶水的运费)</view><view class='fl_r' style="font-size: 26rpx;color: #f00;">-￥{{firstCut}}</view></view>
+  <!-- 优惠券 -->
+  <view wx:if="{{vou&&vou.length>0&&isTeacher!=1&&firstCut==0}}" class="sub-youhui" bindtap='vouShow'>
+    <view>使用优惠券</view>
+    <view>{{choose_vou}}
+      <image src="/image/index-06.png"></image>
+    </view>
+  </view>
+  <!-- 备注 -->
+  <view class="sub-text" wx:if="{{vou_show == true ? false : true}}">
+    <view>商品备注
+      <text>(选填)</text>
+    </view>
+    <textarea wx:if="{{!vou_show}}" name="textarea" cursor-spacing="150" wx:if="{{mask.opacity == 0}}" value="{{orderRemarks}}" bindinput='textarea' placeholder="请输入您的备注信息" placeholder-style="font-size:28rpx;color:#999;"></textarea>
+  </view>
+
+  <!-- 底部栏 -->
+    <view class="sub-bottom">
+      <view>合计：
+        <text>￥{{total}}</text>
+      </view>
+      <button class='btn' formType="submit">提交订单</button>
+    </view>
+</view>
+  </form>
+
+<!--优惠券弹框  -->
+  <view wx:if="{{vou_show}}" bindtap='shut' class='mask '></view>
+  <view wx:if="{{vou_show}}" class='vou_box'>
+    <view class='vou_title'>店铺优惠</view>
+    <view class='vou_wrap2' wx:for="{{vou}}" wx:key="item2">
+      <view class='fl_l'>省{{item.amount}}元：{{item.title}}</view>
+      <image bindtap='choose' data-index='{{index+1}}' class='choose fl_r' mode='aspectFit' src='{{choose==index+1?"/image/choose_true.png":"/image/choose_false.png"}}'></image>
+    </view>
+    <view class='vou_wrap3'>
+      <view class='fl_l'>不使用优惠券</view>
+      <image bindtap='choose' data-index='0' class='choose fl_r' mode='aspectFit' src='{{choose==0?"/image/choose_true.png":"/image/choose_false.png"}}'></image>
+    </view>
+    <view class='finish' bindtap='shut'>确定</view>
+  </view> 

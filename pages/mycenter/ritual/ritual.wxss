@@ -1,0 +1,215 @@
+page {
+  background: white;
+}
+.rit{
+  width: 100%;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  border-bottom: 20rpx solid #f0f0f0;
+  display: flex;
+  justify-content:center;
+}
+.rit>image{
+  width: 28rpx;
+  height: 28rpx;
+  margin-top: 14rpx;
+}
+.rit>view{
+  font-size: 24rpx;
+  color: #666;
+  padding-left: 10rpx;
+}
+.orderDetails {
+  border-bottom: 20rpx solid #f3f3f3;
+  background: #fff;
+  overflow: hidden;
+  height: 244rpx;
+  position: relative;
+}
+.order-hb{
+  position: absolute;
+  top: 8%;
+  left: 3%;
+  width: 94%;
+  height: 84%;
+  z-index: 9999;
+  background: rgba(0,0,0,.1);
+  border-radius: 20rpx;
+}
+.orderListTitle {
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1rpx solid #f3f3f3;
+}
+
+.orderListTitle .userImg {
+  float: left;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 35rpx;
+  margin: 15rpx;
+}
+
+.orderListTitle .userImg image {
+  border-radius: 35rpx;
+  width: 100%;
+  height: 100%;
+}
+
+.orderListTitle .userName {
+  padding-right: 50rpx;
+  background: url(../../../images/member_list_arrow.png) no-repeat 90% center;
+  background-size: 35rpx 35rpx;
+}
+
+.orderListTitle .orderStatus {
+  float: right;
+  margin-right: 20rpx;
+  color: #2f7b27;
+  font-size: 34rpx;
+}
+
+.orderListDetails {
+  margin: 10px;
+  display: flex;
+  height: 200rpx;
+  border:4rpx solid #309efd;
+  border-radius: 20rpx;
+  position: relative;
+}
+
+.orderListDetails .productImg {
+  flex: 1.3;
+  height: 217rpx;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+}
+
+.orderListDetails .productImg image {
+  width: 100%;
+  height: 100%;
+}
+
+.orderListDetails .productInfo {
+  width: 250rpx;
+  padding: 20rpx 5rpx;
+  text-align: center;
+}
+
+.pr {
+  position: relative;
+  flex: 2.6;
+  padding: 0 10rpx;
+  line-height: 44rpx;
+  margin: auto 0;
+}
+
+.n {
+  margin-top: 7rpx;
+  max-height: 80rpx;
+  font-size: 30rpx;
+  display: inline-block;
+  line-height: 40rpx;
+  font-weight: 900;
+  overflow: hidden;
+  width: 100%;
+}
+
+.b {
+  margin: 8rpx 0 32rpx;
+  font-size: 27rpx;
+  display: inline-block;
+  line-height: 30rpx;
+  color: #999;
+}
+
+.y {
+  font-size: 100rpx;
+  font-weight: 900;
+  color: #ffba19;
+}
+
+.x {
+  color: #ffba19;
+  font-size: 38rpx;
+  font-weight: 900;
+}
+
+.hh {
+  font-weight: 800;
+  color: #309efd;
+  flex: 1.3;
+  padding: 20rpx 0rpx;
+  text-align: center;
+  border-left: 1px dashed  #ccc;
+}
+
+.hb {
+  width: 80%;
+  margin-top: 38rpx;
+  font-size: 34rpx;
+  padding: 18rpx;
+  border-radius: 4rpx;
+}
+.hb-h {
+  width: 80%;
+  margin-top: 38rpx;
+  font-size: 34rpx;
+  padding: 18rpx;
+  border-radius: 4rpx;
+  color: #999;
+}
+.hb2 {
+  margin-top: 0;
+}
+
+.c {
+  font-size: 24rpx;
+  position: absolute;
+  bottom: 23rpx;
+  left: 195rpx;
+  width: 400rpx;
+  color: #ccc;
+  line-height: 32rpx;
+}
+
+.classname {
+  font-size: 25rpx;
+  color: #ccc;
+}
+.f100{
+  font-size: 100rpx;
+}
+/*数据为空  */
+.noOrder{
+  overflow: hidden;
+	width: 100%;
+  margin-bottom: -200rpx;
+	background: #fff;
+}
+.noOrder>view:first-child{
+	width: 325rpx;
+	height: 330rpx;
+	padding: 220rpx 0 50rpx 0;
+	margin: 0 auto;
+}
+.noOrder>view:first-child>image{
+	width: 100%;
+	height: 100%;
+}
+.noOrder>view:nth-child(2){
+	text-align:center;
+	font-size: 32rpx;
+	color: #333;
+	margin: 20rpx 0;
+}
+.noOrder>view:last-child{
+	font-size: 30rpx;
+	color: #666;
+	text-align: center;
+}
+.bg{ 
+  background: #fff;
+  height: 100vh;
+}

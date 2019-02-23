@@ -1,0 +1,11 @@
+<!--pages/mycenter/notice/notice.wxml-->
+<loading wx:if="{{showLoading}}">加载中</loading>
+<view class="notce">
+	<!-- 第一个公告 -->
+	<view class="notice-one" bindtap="bindtapDetails" wx:for="{{datas}}" wx:key="{{index}}" data-articleid="{{item.articleId}}">
+		<view>{{item.articleTitle}}</view>
+		<view>{{item.articleContent}}</view>
+		<view>{{item.createTime}}</view>
+		<!-- <text> | </text>{{item.noticeType}} -->
+	</view>
+</view>

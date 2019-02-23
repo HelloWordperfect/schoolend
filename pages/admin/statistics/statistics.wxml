@@ -1,0 +1,77 @@
+
+<loading wx:if="{{showLoading}}">加载中</loading>
+<view class='section1 clear yellow'>
+  <image class='fl_l order_img' src='/image/user.png'></image>
+  <view class='fl_l order_txt'>用户数量（{{lists[0].listsNumber}}）</view>
+  <!-- <view class='fl_r order_date arrow'>
+    <picker mode="date" style="width: 100%;font-size: 30rpx;color: #333;" bindchange="bindDateChange">
+      <view class="picker">{{date}}</view>
+    </picker>
+  </view> -->
+</view>
+<view class='tab'>
+  <view bindtap='tab_choose' data-index="{{index}}" class='tab_item {{choose == index ? "active":""}}' wx:for="{{lists}}" wx:key="{{index}}">
+    <view class='key'>{{item.listsName}}</view>
+    <view class='val'>{{item.listsNumber}}</view>
+  </view>
+</view>
+<view class='list1' wx:for="{{datas}}" wx:key="{{index}}">
+  <view class='list_item'>
+    <view class="zhezhao" wx:if="{{item.isSender == -1}}" bindtap="{{item.isSender != 0 ? 'bindtapMasks' : ''}}" data-isSender="{{item.isSender}}" data-userid="{{item.userId}}" data-username="{{item.userName}}" data-phone="{{item.phone}}" data-userPhoto="{{item.userPhoto}}"></view>
+    <view class='list_t clear'>
+      <image bindtap="{{item.isSender != 0 ? 'bindtapMasks' : ''}}" data-isSender="{{item.isSender}}" data-userid="{{item.userId}}" data-username="{{item.userName}}" data-phone="{{item.phone}}" data-userPhoto="{{item.userPhoto}}" class='list_tl fl_l' src='{{item.userPhoto}}'></image>
+      <view class='list_tr fl_l' bindtap="{{item.isSender != 0 ? 'bindtapMasks' : ''}}" data-isSender="{{item.isSender}}" data-userid="{{item.userId}}" data-username="{{item.userName}}" data-phone="{{item.phone}}" data-userPhoto="{{item.userPhoto}}">
+        <view class='list_tr1'>
+          <view class='fl_l'>{{item.isSender == 1 ? item.trueName : item.userName}}</view>
+        </view>
+        <view class='list_tr3'>
+          <view class='num fl_l'>手机号码：{{item.phone}}</view>
+        </view>
+        <!-- <view class='list_tr2'>
+          <view class='num fl_l'>申请时间：{{item.subscribeTime}}</view>
+        </view> -->
+      </view>
+      <view class='arrow_wrap fl_l'>
+        <view class="{{item.isSender == 0 ? 'arrow_view1' : 'arrow_view'}}">{{(item.isSender == 0 && item.isTeacher == 0) ? '' : (item.isSender == 0 ? '教师' : '派单员')}}</view>
+        <view wx:if="{{item.isSender != 0}}" bindtap="bindFeng" data-userid="{{item.userId}}" data-isSender="{{item.isSender}}" class="{{item.isSender == 1 ? 'arrow_butt' : 'arrow_butt1'}}">{{item.isSender == 1 ? '封禁' : '已封禁'}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="stas-quanbu" wx:if="{{totalPage*1 == currPage*1 && datas.length != 0}}">已加载全部</view>
+<view class="stas-quanbu" wx:if="{{!datas || datas.length == 0}}">暂无数据</view>
+<!-- 弹窗 -->
+<view class="mask" style="opacity: {{mask.opacity}}; display: {{mask.display}};">
+  <view class="masks" bindtap="bindtapClose"></view>
+  <view class="mask-shop" style="transform: {{returnDeposit.translateY}}; opacity: {{returnDeposit.opacity}};">
+    <view class="mask-ju">
+      <!-- 关闭按钮 -->
+      <view class="mask-guan" bindtap="bindtapClose">
+        <image src="../../../image/shopdetails-05.png"></image>
+      </view>
+      <!-- 头像 -->
+      <view>
+        <image src="{{tanXinxi.userphoto}}"></image>
+      </view>
+      <!-- 个人信息 -->
+      <view>
+        <view>真实姓名：
+          <text>{{paiXinxi.trueName}}</text>
+        </view>
+        <view>用户昵称：
+          <text>{{tanXinxi.username}}</text>
+        </view>
+        <view>手 机 号 ：
+          <text>{{tanXinxi.phone}}</text>
+        </view>
+        <view>身份证号：
+          <text>{{paiXinxi.IdCode}}</text>
+        </view>
+        <view>认证时间：
+          <text>{{paiXinxi.createTime}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="{{tanXinxi.issender == 1 ? 'mask-button' : 'mask-button1'}}" bindtap="bindFeng" data-userid="{{tanXinxi.userid}}" data-isSender="{{tanXinxi.issender}}">{{tanXinxi.issender == 1 ? '立即封禁' : '立即解封'}}</view>
+  </view>
+</view>

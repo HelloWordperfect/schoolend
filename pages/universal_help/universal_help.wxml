@@ -1,0 +1,10 @@
+<!--pages/universal_help/universal_help.wxml-->
+<loading wx:if="{{showLoading}}">加载中</loading>
+<view class='list'>
+  <navigator wx:for="{{root}}" wx:key="shops" url='../water/water?goodsId={{item.goodsId}}&shopId={{item.id}}' class='list_item auto fl_l auto'>
+    <view class='item_l'>
+     <image class='item_img' src='{{img_url+item.logo}}'></image>
+    </view>
+    <view class='item_r ellipsis'>{{item.name}}</view>
+  </navigator>
+</view>

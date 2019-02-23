@@ -1,0 +1,82 @@
+<!--pages/catering/catering.wxml-->
+<loading wx:if="{{showLoading1||showLoading2||showLoading3}}">加载中</loading>
+<view class="caterings">
+  <!-- top -->
+  <view class="top" wx:if="{{schoolName}}">
+    <view>
+      <image src="../../image/position.png"></image>
+      <view>我的校区：
+        <text>{{schoolName}}</text>
+      </view>
+    </view> 
+    <navigator url="../mycenter/information/information">
+      <image src="../../image/me-16.png"></image>
+      <view>完善信息</view>
+    </navigator>
+  </view>
+  <!-- 轮播 -->
+  <view class="index-banner"> 
+    <swiper class="index-swiper" indicator-dots="true" indicator-active-color="#309EFD" autoplay="true" interval="5000" duration="1000" circular="true">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{baseUrl+item}}" class="index-banner-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 搜索 -->
+  <view class="cater">
+    <navigator class="index-sousuo" url="../seek/seek">
+      <image src="../../image/index-01.png"></image>
+      <view>搜索</view>
+    </navigator>
+    <view bindtap="bindtapMasks">
+      <image src="../../image/fenlei.png"></image>
+      <view>分类</view>
+    </view>
+  </view>
+  <!-- 主体内容 -->
+  <view class="catering">
+    <!-- 商品 -->
+    <view class="cater-shop">
+      <!-- 第一条 -->
+      <view class="shop-item" bindtap='go_detail' wx:for="{{datas}}" wx:key="{{index}}" data-goodsid="{{item.id}}">
+        <view>
+          <image src="{{baseUrl}}{{item.photo_x}}"></image>
+        </view>
+        <view>{{item.name}}</view>
+        <view>
+            <image class='new' wx:if="{{item.is_hot==1}}" src='/image/hot.gif'></image>
+            <image class='new' wx:elif="{{item.is_show==1}}" src='/image/new.gif'></image>
+            <image class='new' wx:else src='/image/recommend.gif'></image> 
+        </view>
+        <view>￥{{item.price_yh}}
+          <text>销量{{item.saleNum}}件</text>
+        </view>
+      </view>
+    </view>
+    <!-- 已加载全部 -->
+    <!-- <view class="cart-quanbu" wx:if="{{currPage==totalPage}}">已加载全部</view> -->
+    
+    <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+      <view wx:if="{{control}}" class="weui-loading"></view>
+      <view class="weui-loadmore__tips">{{loadingval}}</view>
+    </view> 
+    <!-- 暂无商品 -->
+    <view class="cart-quanbu" wx:if="{{!datas || datas.length == 0}}">暂无商品</view>
+  </view>
+</view>
+<!-- 右侧栏 -->
+<view class="mask"  style="opacity: {{mask.opacity}}; display: {{mask.display}};">
+  <view class="masks" bindtap="bindtapClose"></view>
+  <!-- 右侧内容 -->
+  <view class="mask-nav" style="transform: {{returnDeposit.translateY}}; opacity: {{returnDeposit.opacity}};">
+    <view wx:for="{{lists}}" wx:key="{{index}}" bindtap="bindFenlei" data-listid="{{item.catId}}">{{item.catName}}</view>
+  </view>
+</view>
+
+<!--悬浮购物车  -->
+<view bindtap='go_cart' class='cart_wrap'>
+  <image class='shop_cart' src='/image/w_shop_cart.png'></image>
+  <view wx:if="{{num>0}}" class='num'>{{num}}</view>
+</view>
